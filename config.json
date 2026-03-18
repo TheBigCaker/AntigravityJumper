@@ -1,0 +1,58 @@
+{
+  "_comment": "CODAI Daemon config — copy to each machine and customize",
+
+  "machine": {
+    "id": "laptop",
+    "role": "client",
+    "_note": "Change 'id' to 'desktop' on the other machine. role: 'server' runs relay_server too."
+  },
+
+  "relay": {
+    "url": "ws://DESKTOP_IP:8765",
+    "_note": "Replace DESKTOP_IP with your desktop's LAN IP or public IP. Use wss:// if behind SSL.",
+    "secret": ""
+  },
+
+  "bridge": {
+    "working_dir": "C:/Codai",
+    "timeout": 180
+  },
+
+  "web_ui": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "_note": "Open http://localhost:8080 or http://DESKTOP_IP:8080 from any browser"
+  },
+
+  "schedule": [
+    {
+      "id": "morning_status",
+      "time": "08:00",
+      "days": ["mon", "tue", "wed", "thu", "fri"],
+      "prompt": "Check the current state of the Codai project. Summarize any pending tasks, recent changes, and what should be worked on today. Be concise.",
+      "to": "*",
+      "enabled": false
+    },
+    {
+      "id": "evening_summary",
+      "time": "20:00",
+      "prompt": "Generate a brief end-of-day summary: what was accomplished, any issues, and tomorrow's priorities.",
+      "to": "*",
+      "enabled": false
+    },
+    {
+      "id": "hourly_training_check",
+      "interval_minutes": 60,
+      "prompt": "Check if any training jobs are running. Report GPU/CPU usage, loss values, and ETA if available.",
+      "to": "*",
+      "enabled": false
+    },
+    {
+      "id": "custom_task_1",
+      "time": "10:30",
+      "prompt": "YOUR PROMPT HERE",
+      "to": "desktop",
+      "enabled": false
+    }
+  ]
+}
